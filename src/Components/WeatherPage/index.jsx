@@ -14,7 +14,7 @@ const WeatherPage = () => {
   const [city , setCity] = useState("hyderabad")
   const [weatherData , setWeatherData] = useState(null)
   const [weather , setWeather] = useState("")
-  const [bgImage , setBgImage] = useState({})
+  const [bgImage , setBgImage] = useState("")
   console.log(weatherData)
 
 
