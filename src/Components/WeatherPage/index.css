@@ -33,8 +33,9 @@
 
 .input-search{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 80%;
+    
 } 
 
 .input-search input{
@@ -48,8 +49,18 @@
     outline: none;
 } 
 
+.search{
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+}
+
 .search img{
-    width: 50px;
+    width: 30px;
     cursor: pointer;
 }
 

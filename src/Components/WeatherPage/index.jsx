@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useRef, useState } from 'react'
 import './index.css'
 import searchIcon from "../Assets/search.png"
 import clear from "../Assets/clear.png"
@@ -11,14 +11,13 @@ import haze from "../Assets/haze.png"
 
  
 const WeatherPage = () => {
-  const [city , setCity] = useState("hyderabad")
   const [weatherData , setWeatherData] = useState(null)
   const [weather , setWeather] = useState("")
   const [bgImage , setBgImage] = useState("")
-  console.log(weatherData)
+  const inputRef = useRef()
+  console.log(weatherData) 
 
-
-const onclickSearchBtn = async () => {
+const getWeatherData = async (city) => {
   if(city === ""){
     alert("Enter city")
     return
@@ -32,7 +31,7 @@ const onclickSearchBtn = async () => {
               if(response.ok){
                 console.log(data)
                 setWeatherData(data)
-                setCity("")
+                
                 
                 switch(data.weather[0].main){
                   case "Clear":
@@ -56,14 +55,20 @@ const onclickSearchBtn = async () => {
                 alert("City not found")
               } 
         } catch (error) {
-              alert(error)
-              setCity("")
-        }     
+              alert(error)  
+        }  
+        
 }  
 
 useEffect(() => {
-  onclickSearchBtn()
-  },[]) 
+  getWeatherData("hyderabad")
+},[])
+
+const onclickSearch = (city) => {
+      getWeatherData(city)
+      inputRef.current.value = ""
+}
+
 
 const bgStyle = {
   backgroundImage : `url("${bgImage}")`,
@@ -76,8 +81,8 @@ const bgStyle = {
         {/* navbar */}
         <div className="nav-bar">
         <div className="input-search">
-            <input type="text" placeholder='Enter city name' value={city} onChange={(e) => {setCity(e.target.value)}} />
-            <div onClick={onclickSearchBtn} className="search">
+            <input type="text" placeholder='Enter city name'  ref={inputRef} />
+            <div onClick={()=> {onclickSearch(inputRef.current.value.trim(""))}} className="search">
               <img src={searchIcon} alt="search" />
             </div>
         </div>
